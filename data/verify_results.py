@@ -150,11 +150,16 @@ try:
     body = re.sub(r"https?://\S+", "", facts)
     nums = sorted(set(NUMRE.findall(body)), key=lambda x: float(x))
     def in_src(n): return re.search(r"(?<![\d.])" + re.escape(n) + r"(?!\d)", src) is not None
-    notfound = [n for n in nums if not in_src(n) and n not in tpl]
+    # header (non-data) lines of the Giovanni CSV, e.g. "Data Bounding Box" = the IMERG cell used
+    hdr = "".join(l for l in open("imerg_daily.csv") if not pat.match(l)) if os.path.exists("imerg_daily.csv") else ""
+    def in_hdr(n): return re.search(r"(?<![\d.])" + re.escape(n) + r"(?!\d)", hdr) is not None
+    notfound = [n for n in nums if not in_src(n) and n not in tpl and not in_hdr(n)]
+    hdronly = [n for n in nums if not in_src(n) and n not in tpl and in_hdr(n)]
     tplonly = [n for n in nums if not in_src(n) and n in tpl]
     ph = "[" in facts
     status = "FAIL" if ph or notfound else "PASS"
     rep("C10", status, f"'[' left: {ph}; numbers not found in summary/json/meta: {notfound or 'none'}; "
+        f"found only in imerg_daily.csv header: {hdronly or 'none'}; "
         f"template constants (not data, exempt): {tplonly or 'none'}")
 except FileNotFoundError:
     rep("C10", "FAIL", "facts.md not found")

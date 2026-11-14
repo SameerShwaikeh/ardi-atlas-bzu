@@ -15,3 +15,4 @@ Order tonight:
    Re-run when AppEEARS finishes; send the new ardi_data.json again.
 IMERG V07 Final ends Sep 2025 -> 27 complete seasons (1998/99-2024/25). Say "5th-driest of 27 seasons".
 Run scripts from inside this folder (`python 3_indicators.py`), so they find config.py.
+Install: `pip install requests pandas numpy scipy` (3_indicators.py needs scipy for the Spearman correlations).

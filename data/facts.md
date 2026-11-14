@@ -11,6 +11,7 @@ Open field-crop strips in the Arraba-Burqin plain (Dothan Valley); rainfed statu
 | POWER | NASA LaRC | POWER daily API, AG community | T2M_MAX, T2M_MIN (deg C); PRECTOTCORR (mm/day) | not stated in power_meta.json | daily | 1981-01-01 to 2026-11-10 | POWER API | https://power.larc.nasa.gov/ |
 | MODIS NDVI | NASA LP DAAC | MOD13Q1 v061 | NDVI (unitless) | 250 m (no data yet) | 16-day | no data yet | AppEEARS point request | https://appeears.earthdatacloud.nasa.gov |
 | SRTM | NASA / LP DAAC | SRTMGL1_NC v003 | elevation (m) | ~30 m | once, Feb 2000 | no data yet | AppEEARS point request | https://appeears.earthdatacloud.nasa.gov |
+IMERG note: Giovanni limited the area average to the single IMERG cell centred at 35.25E, 32.45N (about 3 km from the point); source: header of imerg_daily.csv.
 Not NASA and not used in scores: ERA5, Sentinel-2, GAEZ, SoilGrids. Crop values: see crops.json sources.
 
 ## 2. Dry line (stress test, not a forecast)
