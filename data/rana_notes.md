@@ -7,10 +7,13 @@ so some values are still null. Nothing was guessed: a value is either from the s
 
 | Crop | min_season_rain_mm | yield_t_ha | bare_months_typical | price_ils_t |
 |---|---|---|---|---|
-| Wheat (durum) | 400 | 1.6 | 6 | null |
-| Barley | 200 | 1.4 | 6 | null |
-| Lentil | 250 | null | 6 | null |
-| Bitter vetch | 300 | null | 6 | null |
+| Wheat (durum) | 400 | 1.6 | 6 | 1766 |
+| Barley | 200 | 1.4 | 6 | 2344 |
+| Lentil | 250 | 1.16 | 6 | 4300 (assumption) |
+| Bitter vetch | 300 | 1.29 | 6 | 2300 (assumption) |
+
+(Table updated Sat 14 Nov ~07:40 to match crops.json. Prices: see section 5. The lentil and vetch yields were
+filled after this note was first written; check crops.json `sources` for where they came from; the vetch yield has no yield source listed there, so confirm it.)
 
 **min_season_rain_mm** = FAO ECOCROP "Rainfall (annual), absolute minimum".
 - Durum wheat: absolute 400–800 mm, optimal 500–700. https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=10582
