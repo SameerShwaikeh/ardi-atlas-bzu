@@ -1,0 +1,304 @@
+{
+ "contract_version": 1,
+ "placeholder": false,
+ "generated": "2026-11-14T03:42",
+ "point": {
+  "name": "jenin_plain",
+  "lat": 32.4293,
+  "lon": 35.2225
+ },
+ "datasets": [
+  {
+   "id": "imerg",
+   "label": "IMERG V07 Final Daily (GPM_3IMERGDF.07), 0.1 deg grid cell (~11 km), file covers 1998-01-01 to 2025-09-30",
+   "role": "rain seasons, dry line, dry spells, heavy-rain days"
+  },
+  {
+   "id": "power",
+   "label": "NASA POWER daily (MERRA-2), 0.5 x 0.625 deg grid cell (~55 x 59 km), file covers 1981-01-01 to 2026-11-10",
+   "role": "heat and frost days"
+  }
+ ],
+ "seasons": [
+  {
+   "season": "1998/99",
+   "rain_mm": 259.5,
+   "rank_driest": 1,
+   "days_ge20mm": 3,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 28,
+   "heat_days_mam": 3,
+   "frost_days": 0
+  },
+  {
+   "season": "1999/00",
+   "rain_mm": 440.6,
+   "rank_driest": 9,
+   "days_ge20mm": 4,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 19,
+   "heat_days_mam": 1,
+   "frost_days": 0
+  },
+  {
+   "season": "2000/01",
+   "rain_mm": 412.8,
+   "rank_driest": 7,
+   "days_ge20mm": 7,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 15,
+   "heat_days_mam": 5,
+   "frost_days": 0
+  },
+  {
+   "season": "2001/02",
+   "rain_mm": 613.2,
+   "rank_driest": 25,
+   "days_ge20mm": 8,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 20,
+   "heat_days_mam": 0,
+   "frost_days": 0
+  },
+  {
+   "season": "2002/03",
+   "rain_mm": 776.1,
+   "rank_driest": 27,
+   "days_ge20mm": 13,
+   "dry_spells_10d_jfm": 0,
+   "longest_dry_run_jfm": 9,
+   "heat_days_mam": 8,
+   "frost_days": 0
+  },
+  {
+   "season": "2003/04",
+   "rain_mm": 462.7,
+   "rank_driest": 15,
+   "days_ge20mm": 6,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 11,
+   "heat_days_mam": 1,
+   "frost_days": 0
+  },
+  {
+   "season": "2004/05",
+   "rain_mm": 455.7,
+   "rank_driest": 12,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 19,
+   "heat_days_mam": 2,
+   "frost_days": 0
+  },
+  {
+   "season": "2005/06",
+   "rain_mm": 462.5,
+   "rank_driest": 14,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 21,
+   "heat_days_mam": 2,
+   "frost_days": 0
+  },
+  {
+   "season": "2006/07",
+   "rain_mm": 451.5,
+   "rank_driest": 11,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 12,
+   "heat_days_mam": 5,
+   "frost_days": 0
+  },
+  {
+   "season": "2007/08",
+   "rain_mm": 363.0,
+   "rank_driest": 5,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 19,
+   "heat_days_mam": 4,
+   "frost_days": 0
+  },
+  {
+   "season": "2008/09",
+   "rain_mm": 457.8,
+   "rank_driest": 13,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 0,
+   "longest_dry_run_jfm": 9,
+   "heat_days_mam": 1,
+   "frost_days": 0
+  },
+  {
+   "season": "2009/10",
+   "rain_mm": 531.7,
+   "rank_driest": 19,
+   "days_ge20mm": 9,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 17,
+   "heat_days_mam": 3,
+   "frost_days": 0
+  },
+  {
+   "season": "2010/11",
+   "rain_mm": 479.6,
+   "rank_driest": 17,
+   "days_ge20mm": 7,
+   "dry_spells_10d_jfm": 0,
+   "longest_dry_run_jfm": 8,
+   "heat_days_mam": 1,
+   "frost_days": 0
+  },
+  {
+   "season": "2011/12",
+   "rain_mm": 544.8,
+   "rank_driest": 21,
+   "days_ge20mm": 10,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 15,
+   "heat_days_mam": 0,
+   "frost_days": 0
+  },
+  {
+   "season": "2012/13",
+   "rain_mm": 583.0,
+   "rank_driest": 23,
+   "days_ge20mm": 8,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 22,
+   "heat_days_mam": 6,
+   "frost_days": 0
+  },
+  {
+   "season": "2013/14",
+   "rain_mm": 316.0,
+   "rank_driest": 3,
+   "days_ge20mm": 3,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 25,
+   "heat_days_mam": 3,
+   "frost_days": 0
+  },
+  {
+   "season": "2014/15",
+   "rain_mm": 548.3,
+   "rank_driest": 22,
+   "days_ge20mm": 8,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 25,
+   "heat_days_mam": 4,
+   "frost_days": 0
+  },
+  {
+   "season": "2015/16",
+   "rain_mm": 413.9,
+   "rank_driest": 8,
+   "days_ge20mm": 4,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 11,
+   "heat_days_mam": 6,
+   "frost_days": 0
+  },
+  {
+   "season": "2016/17",
+   "rain_mm": 337.6,
+   "rank_driest": 4,
+   "days_ge20mm": 4,
+   "dry_spells_10d_jfm": 5,
+   "longest_dry_run_jfm": 15,
+   "heat_days_mam": 4,
+   "frost_days": 0
+  },
+  {
+   "season": "2017/18",
+   "rain_mm": 469.1,
+   "rank_driest": 16,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 28,
+   "heat_days_mam": 8,
+   "frost_days": 0
+  },
+  {
+   "season": "2018/19",
+   "rain_mm": 676.1,
+   "rank_driest": 26,
+   "days_ge20mm": 8,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 13,
+   "heat_days_mam": 6,
+   "frost_days": 0
+  },
+  {
+   "season": "2019/20",
+   "rain_mm": 611.6,
+   "rank_driest": 24,
+   "days_ge20mm": 7,
+   "dry_spells_10d_jfm": 0,
+   "longest_dry_run_jfm": 6,
+   "heat_days_mam": 7,
+   "frost_days": 0
+  },
+  {
+   "season": "2020/21",
+   "rain_mm": 447.1,
+   "rank_driest": 10,
+   "days_ge20mm": 7,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 13,
+   "heat_days_mam": 5,
+   "frost_days": 0
+  },
+  {
+   "season": "2021/22",
+   "rain_mm": 490.6,
+   "rank_driest": 18,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 1,
+   "longest_dry_run_jfm": 10,
+   "heat_days_mam": 1,
+   "frost_days": 0
+  },
+  {
+   "season": "2022/23",
+   "rain_mm": 376.2,
+   "rank_driest": 6,
+   "days_ge20mm": 5,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 25,
+   "heat_days_mam": 4,
+   "frost_days": 0
+  },
+  {
+   "season": "2023/24",
+   "rain_mm": 534.3,
+   "rank_driest": 20,
+   "days_ge20mm": 9,
+   "dry_spells_10d_jfm": 2,
+   "longest_dry_run_jfm": 22,
+   "heat_days_mam": 4,
+   "frost_days": 0
+  },
+  {
+   "season": "2024/25",
+   "rain_mm": 267.1,
+   "rank_driest": 2,
+   "days_ge20mm": 2,
+   "dry_spells_10d_jfm": 3,
+   "longest_dry_run_jfm": 12,
+   "heat_days_mam": 6,
+   "frost_days": 0
+  }
+ ],
+ "dry_line": {
+  "season": "2007/08",
+  "rain_mm": 363.0,
+  "rank": 5,
+  "n_seasons": 27,
+  "pct_of_mean": 77.0,
+  "mean_rain_mm": 473.4
+ },
+ "slope": null,
+ "backtest": null
+}

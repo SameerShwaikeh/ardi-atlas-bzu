@@ -1,0 +1,17 @@
+{
+ "_note": "SHAPE ONLY (DATA_CONTRACT.md v1). Every value is null on purpose: this file holds no data. 3_indicators.py writes the real ardi_data.json in exactly this shape. Season fields marked optional may be missing; slope and backtest may be null.",
+ "contract_version": 1,
+ "placeholder": false,
+ "generated": null,
+ "point": {"name": null, "lat": null, "lon": null},
+ "datasets": [{"id": null, "label": null, "role": null}],
+ "seasons": [{
+   "season": null, "rain_mm": null, "rank_driest": null, "days_ge20mm": null,
+   "dry_spells_10d_jfm": null, "longest_dry_run_jfm": null,
+   "heat_days_mam": null, "frost_days": null, "bare_months": null, "ndvi_peak": null
+ }],
+ "dry_line": {"season": null, "rain_mm": null, "rank": null, "n_seasons": null, "pct_of_mean": null, "mean_rain_mm": null},
+ "slope": {"slope_pct": null, "elevation_m": null, "note": null},
+ "backtest": {"n_seasons": null, "driest_below_mean": null, "driest_below_1sd": null, "spearman_rain_vs_ndvi": null,
+              "rows": [{"season": null, "rain_mm": null, "rank": null, "ndvi_peak": null, "anomaly_sd": null}]}
+}
