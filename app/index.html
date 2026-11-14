@@ -117,6 +117,8 @@ textarea.sum{width:100%;min-height:140px;font:13.5px/1.5 ui-monospace,monospace;
 .banner .ar{color:#fff}
 .benefit{margin:0;font-size:14.5px;background:var(--leaf-2);border-radius:10px;padding:7px 10px}
 .partial{font-size:12px;font-weight:600;color:var(--warn);margin-left:6px}
+.mapbox{margin-top:12px}
+.mapbox iframe{width:100%;height:240px;border:1px solid var(--line);border-radius:14px;display:block}
 </style>
 </head>
 <body>
@@ -156,6 +158,9 @@ textarea.sum{width:100%;min-height:140px;font:13.5px/1.5 ui-monospace,monospace;
           <span class="soon">Preview — coming later · قريباً</span>
         </button>
       </div>
+      <div class="mapbox" id="mapBox"><iframe id="mapFrame" title="Map of the pilot point" loading="lazy"></iframe>
+        <div class="src">Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>. The marker is the pilot point; the map shows the area, not your plot.
+          <span class="ar" lang="ar">الخريطة © مساهمو OpenStreetMap. العلامة هي النقطة التجريبية، والخريطة تُظهر المنطقة لا قطعتك.</span></div></div>
     </div>
     <div class="q"><div class="qh">What do you grow now? <span class="ar-inline" lang="ar">ماذا تزرع الآن؟</span></div>
       <p class="small">Pick the rotation closest to what you grow today. It stays on the first card so you can compare.</p>
@@ -268,6 +273,10 @@ function renderField() {
   const p = (S.data && S.data.point) || {};
   set('pointName', p.name || 'Jenin plain pilot point');
   set('pointCoords', isNum(p.lat) && isNum(p.lon) ? `${p.lat.toFixed(3)}° N, ${p.lon.toFixed(3)}° E` : 'coordinates: not set');
+  if (isNum(p.lat) && isNum(p.lon)) {
+    const u = `https://www.openstreetmap.org/export/embed.html?bbox=${(p.lon - 0.06).toFixed(4)},${(p.lat - 0.035).toFixed(4)},${(p.lon + 0.06).toFixed(4)},${(p.lat + 0.035).toFixed(4)}&layer=mapnik&marker=${p.lat},${p.lon}`;
+    if ($('mapFrame').getAttribute('src') !== u) $('mapFrame').setAttribute('src', u);
+  } else $('mapBox').classList.add('hidden');
   const rots = (S.crops && S.crops.rotations) || [];
   if (!S.current && rots.length) S.current = (rots.find(r => r.is_current) || rots[0]).id;
   $('rotationTiles').innerHTML = rots.length ? rots.map(r => `<button class="tile" type="button" data-rot="${esc(r.id)}" aria-pressed="${r.id === S.current}">
