@@ -141,7 +141,16 @@
   document.head.appendChild(css);
 
   const _rf = window.renderField, _ra = window.renderArabic;
-  if (typeof _rf === 'function') window.renderField = function () { _rf.apply(this, arguments); fieldBlock(); };
+  function mapLink() {
+    try {
+      const p = (S.data && S.data.point) || {}, box = document.getElementById('mapBox');
+      if (!box || !isFinite(p.lat) || !isFinite(p.lon) || document.getElementById('mapLink')) return;
+      const a = document.createElement('p'); a.id = 'mapLink'; a.className = 'src';
+      a.innerHTML = 'Map blank? <a href="https://www.openstreetmap.org/?mlat=' + p.lat + '&mlon=' + p.lon + '#map=13/' + p.lat + '/' + p.lon + '" target="_blank" rel="noopener">Open the pilot point in OpenStreetMap</a> · <span lang="ar">الخريطة فارغة؟ افتحها من الرابط</span>';
+      box.appendChild(a);
+    } catch (e) { /* the map is optional */ }
+  }
+  if (typeof _rf === 'function') window.renderField = function () { _rf.apply(this, arguments); fieldBlock(); mapLink(); };
   if (typeof _ra === 'function') window.renderArabic = function () { _ra.apply(this, arguments); listenBlock(); drawNotes(); };
   if (synth && synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => {};
   (async () => { try { X.terrain = await loadJSON('terrain.json'); } catch (e) { X.terrain = null; } fieldBlock(); drawTerrain(); listenBlock(); drawNotes(); })();
