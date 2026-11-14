@@ -155,8 +155,10 @@ if f:
     c_ndvi = [c for c in m.columns if c.endswith("NDVI")][0]
     c_rel = [c for c in m.columns if c.endswith("pixel_reliability") and "Description" not in c]
     ids = m["ID"].astype(str)
-    use_grid = ids.str.startswith("m_").any()
-    m = m[ids.str.startswith("m_")].copy() if use_grid else m[ids == POINT_ID].copy()
+    # AppEEARS strips "_" from IDs (m_0_0 -> m00); select the 3x3 block by Category instead
+    is_grid = (m["Category"].astype(str) == "modis") if "Category" in m.columns else ids.str.startswith("m")
+    use_grid = bool(is_grid.any())
+    m = m[is_grid].copy() if use_grid else m[ids == POINT_ID].copy()
     m["Date"] = pd.to_datetime(m["Date"])
     v = pd.to_numeric(m[c_ndvi], errors="coerce")
     if v.abs().max() > 1.5:

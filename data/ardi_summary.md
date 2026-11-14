@@ -144,9 +144,61 @@ Seasons with >=1 heat day (>32 C, Mar-May): 41 of 45. Seasons with >=1 frost day
 
 IMERG vs POWER season totals, 27 shared seasons: Spearman rank correlation = 0.91 (computed).
 
-## 4. MODIS: no *MOD13Q1-061-results.csv found, skipped.
+## 4. Bare months per year - MODIS NDVI < 0.2
+Source: MODIS Terra MOD13Q1 v061 NDVI, mean of a 3x3 block of 250 m pixels, 16-day composites, file covers 2000-02-18 to 2026-10-16. 614 usable composites of 5526 (pixel_reliability 0 or 1). Month value = mean of its usable composites. Year = Oct-Sep, labelled like the seasons.
 
-## 5. SRTM: no *SRTMGL1-NC-003-results.csv found, skipped.
+| year | bare_months | months_no_data | ndvi_min |
+|---|---|---|---|
+| 2000/01 | 3 | 0 | 0.17 |
+| 2001/02 | 3 | 0 | 0.16 |
+| 2002/03 | 2 | 0 | 0.18 |
+| 2003/04 | 1 | 0 | 0.20 |
+| 2004/05 | 2 | 0 | 0.19 |
+| 2005/06 | 1 | 0 | 0.19 |
+| 2006/07 | 0 | 0 | 0.20 |
+| 2007/08 | 4 | 0 | 0.18 |
+| 2008/09 | 5 | 0 | 0.18 |
+| 2009/10 | 2 | 0 | 0.17 |
+| 2010/11 | 2 | 0 | 0.18 |
+| 2011/12 | 1 | 0 | 0.20 |
+| 2012/13 | 0 | 0 | 0.20 |
+| 2013/14 | 4 | 0 | 0.16 |
+| 2014/15 | 1 | 0 | 0.19 |
+| 2015/16 | 1 | 0 | 0.19 |
+| 2016/17 | 5 | 0 | 0.17 |
+| 2017/18 | 3 | 0 | 0.18 |
+| 2018/19 | 2 | 0 | 0.19 |
+| 2019/20 | 1 | 0 | 0.16 |
+| 2020/21 | 0 | 0 | 0.20 |
+| 2021/22 | 1 | 0 | 0.20 |
+| 2022/23 | 1 | 0 | 0.20 |
+| 2023/24 | 2 | 0 | 0.19 |
+| 2024/25 | 1 | 0 | 0.19 |
+| 2025/26 | 1 | 0 | 0.19 |
+
+Mean bare months per year: 1.9 (range 0-5, 26 full years). Lowest monthly NDVI in the record: 0.16. If this is 0 every year, the 0.2 threshold is too low for this pixel: say so, do not tune it silently.
+
+## 5. Elevation and slope - SRTM
+Source: NASA SRTM v3 (SRTMGL1_NC.003), 1 arc-second (~30 m), acquired Feb 2000. Elevation at point: 231 m. Neighbours 90 m away: N 232, S 235, E 234, W 230 m.
+**Slope = 2.8 % (1.6 deg)** over a 180 m baseline. SRTM heights are whole metres, so one step of 1 m = 0.6 % slope: treat anything under ~1 % as 'flat', not as a measured value.
 
 ## 6. Backtest - did NDVI collapse in the driest IMERG seasons?
-Needs both imerg_daily.csv and the MOD13Q1 results file. Skipped.
+Rain: IMERG V07 Final Daily (GPM_3IMERGDF.07), 0.1 deg grid cell (~11 km), file covers 1998-01-01 to 2025-09-30.
+NDVI: MODIS Terra MOD13Q1 v061 NDVI, mean of a 3x3 block of 250 m pixels, 16-day composites, file covers 2000-02-18 to 2026-10-16. Peak = highest usable composite in Dec-May.
+Shared seasons: 25 (2000/01 to 2024/25). Rain rank is among ALL IMERG seasons (1 = driest); anomaly = peak minus the 25-season mean peak (0.62, SD 0.06).
+
+| season | rain mm | rank | NDVI peak | anomaly | anomaly_sd |
+|---|---|---|---|---|---|
+| 2024/25 | 267 | 2 | 0.60 | -0.02 | -0.33 |
+| 2013/14 | 316 | 3 | 0.51 | -0.11 | -1.83 |
+| 2016/17 | 338 | 4 | 0.64 | +0.02 | +0.25 |
+| 2007/08 | 363 | 5 | 0.64 | +0.01 | +0.22 |
+| 2022/23 | 376 | 6 | 0.67 | +0.05 | +0.84 |
+
+- Driest 5 seasons with NDVI peak below the mean: 2 of 5.
+- Driest 5 seasons with NDVI peak more than 1 SD below the mean: 1 of 5.
+- Of the 5 lowest NDVI peaks, how many are among the driest 5 seasons: 1 of 5.
+- Spearman rank correlation, season rain vs NDVI peak, all 25 seasons: -0.11.
+Read it honestly: with ~25 seasons a correlation below ~0.4 is weak evidence. If NDVI did NOT fall in the dry seasons, likely reasons are irrigation in the pixel, a mixed 250 m pixel, or IMERG error. Report that, do not hide it.
+
+Full table: backtest.csv

@@ -1,7 +1,7 @@
 {
  "contract_version": 1,
  "placeholder": false,
- "generated": "2026-11-14T03:42",
+ "generated": "2026-11-14T05:16",
  "point": {
   "name": "jenin_plain",
   "lat": 32.4293,
@@ -17,6 +17,16 @@
    "id": "power",
    "label": "NASA POWER daily (MERRA-2), 0.5 x 0.625 deg grid cell (~55 x 59 km), file covers 1981-01-01 to 2026-11-10",
    "role": "heat and frost days"
+  },
+  {
+   "id": "modis",
+   "label": "MODIS Terra MOD13Q1 v061 NDVI, mean of a 3x3 block of 250 m pixels, 16-day composites, file covers 2000-02-18 to 2026-10-16",
+   "role": "bare months, backtest"
+  },
+  {
+   "id": "srtm",
+   "label": "NASA SRTM v3 (SRTMGL1_NC.003), ~30 m, Feb 2000",
+   "role": "slope"
   }
  ],
  "seasons": [
@@ -48,7 +58,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 15,
    "heat_days_mam": 5,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 3,
+   "ndvi_peak": 0.682
   },
   {
    "season": "2001/02",
@@ -58,7 +70,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 20,
    "heat_days_mam": 0,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 3,
+   "ndvi_peak": 0.689
   },
   {
    "season": "2002/03",
@@ -68,7 +82,9 @@
    "dry_spells_10d_jfm": 0,
    "longest_dry_run_jfm": 9,
    "heat_days_mam": 8,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.57
   },
   {
    "season": "2003/04",
@@ -78,7 +94,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 11,
    "heat_days_mam": 1,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.604
   },
   {
    "season": "2004/05",
@@ -88,7 +106,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 19,
    "heat_days_mam": 2,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.645
   },
   {
    "season": "2005/06",
@@ -98,7 +118,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 21,
    "heat_days_mam": 2,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.65
   },
   {
    "season": "2006/07",
@@ -108,7 +130,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 12,
    "heat_days_mam": 5,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 0,
+   "ndvi_peak": 0.686
   },
   {
    "season": "2007/08",
@@ -118,7 +142,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 19,
    "heat_days_mam": 4,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 4,
+   "ndvi_peak": 0.637
   },
   {
    "season": "2008/09",
@@ -128,7 +154,9 @@
    "dry_spells_10d_jfm": 0,
    "longest_dry_run_jfm": 9,
    "heat_days_mam": 1,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 5,
+   "ndvi_peak": 0.724
   },
   {
    "season": "2009/10",
@@ -138,7 +166,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 17,
    "heat_days_mam": 3,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.669
   },
   {
    "season": "2010/11",
@@ -148,7 +178,9 @@
    "dry_spells_10d_jfm": 0,
    "longest_dry_run_jfm": 8,
    "heat_days_mam": 1,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.698
   },
   {
    "season": "2011/12",
@@ -158,7 +190,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 15,
    "heat_days_mam": 0,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.649
   },
   {
    "season": "2012/13",
@@ -168,7 +202,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 22,
    "heat_days_mam": 6,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 0,
+   "ndvi_peak": 0.627
   },
   {
    "season": "2013/14",
@@ -178,7 +214,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 25,
    "heat_days_mam": 3,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 4,
+   "ndvi_peak": 0.513
   },
   {
    "season": "2014/15",
@@ -188,7 +226,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 25,
    "heat_days_mam": 4,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.555
   },
   {
    "season": "2015/16",
@@ -198,7 +238,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 11,
    "heat_days_mam": 6,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.649
   },
   {
    "season": "2016/17",
@@ -208,7 +250,9 @@
    "dry_spells_10d_jfm": 5,
    "longest_dry_run_jfm": 15,
    "heat_days_mam": 4,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 5,
+   "ndvi_peak": 0.639
   },
   {
    "season": "2017/18",
@@ -218,7 +262,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 28,
    "heat_days_mam": 8,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 3,
+   "ndvi_peak": 0.57
   },
   {
    "season": "2018/19",
@@ -228,7 +274,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 13,
    "heat_days_mam": 6,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.519
   },
   {
    "season": "2019/20",
@@ -238,7 +286,9 @@
    "dry_spells_10d_jfm": 0,
    "longest_dry_run_jfm": 6,
    "heat_days_mam": 7,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.563
   },
   {
    "season": "2020/21",
@@ -248,7 +298,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 13,
    "heat_days_mam": 5,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 0,
+   "ndvi_peak": 0.527
   },
   {
    "season": "2021/22",
@@ -258,7 +310,9 @@
    "dry_spells_10d_jfm": 1,
    "longest_dry_run_jfm": 10,
    "heat_days_mam": 1,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.684
   },
   {
    "season": "2022/23",
@@ -268,7 +322,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 25,
    "heat_days_mam": 4,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.675
   },
   {
    "season": "2023/24",
@@ -278,7 +334,9 @@
    "dry_spells_10d_jfm": 2,
    "longest_dry_run_jfm": 22,
    "heat_days_mam": 4,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 2,
+   "ndvi_peak": 0.569
   },
   {
    "season": "2024/25",
@@ -288,7 +346,9 @@
    "dry_spells_10d_jfm": 3,
    "longest_dry_run_jfm": 12,
    "heat_days_mam": 6,
-   "frost_days": 0
+   "frost_days": 0,
+   "bare_months": 1,
+   "ndvi_peak": 0.604
   }
  ],
  "dry_line": {
@@ -299,6 +359,52 @@
   "pct_of_mean": 77.0,
   "mean_rain_mm": 473.4
  },
- "slope": null,
- "backtest": null
+ "slope": {
+  "slope_pct": 2.8,
+  "elevation_m": 231,
+  "note": "SRTM whole-metre heights; under ~1 % = flat"
+ },
+ "backtest": {
+  "n_seasons": 25,
+  "driest_below_mean": 2,
+  "driest_below_1sd": 1,
+  "spearman_rain_vs_ndvi": -0.11,
+  "rows": [
+   {
+    "season": "2024/25",
+    "rain_mm": 267.0,
+    "rank": 2,
+    "ndvi_peak": 0.604,
+    "anomaly_sd": -0.33
+   },
+   {
+    "season": "2013/14",
+    "rain_mm": 316.0,
+    "rank": 3,
+    "ndvi_peak": 0.513,
+    "anomaly_sd": -1.83
+   },
+   {
+    "season": "2016/17",
+    "rain_mm": 338.0,
+    "rank": 4,
+    "ndvi_peak": 0.639,
+    "anomaly_sd": 0.25
+   },
+   {
+    "season": "2007/08",
+    "rain_mm": 363.0,
+    "rank": 5,
+    "ndvi_peak": 0.637,
+    "anomaly_sd": 0.22
+   },
+   {
+    "season": "2022/23",
+    "rain_mm": 376.0,
+    "rank": 6,
+    "ndvi_peak": 0.675,
+    "anomaly_sd": 0.84
+   }
+  ]
+ }
 }

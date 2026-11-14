@@ -1,0 +1,15 @@
+Category,ID,Latitude,Longitude,Date,SRTM_Tile,SRTMGL1_NC_003_Line_Y_30m,SRTMGL1_NC_003_Sample_X_30m,SRTMGL1_NC_003_SRTMGL1_DEM,SRTMGL1_NUMNC_003_SRTMGL1_NUM,SRTMGL1_NUMNC_003_SRTMGL1_NUM_Source_Description
+modis,m-1-1,32.42713,35.219946,2000-02-11,N32E035,2062.0,792.0,234.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m-10,32.42713,35.2225,2000-02-11,N32E035,2062.0,801.0,235.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m-11,32.42713,35.225054,2000-02-11,N32E035,2062.0,810.0,235.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m0-1,32.4293,35.219946,2000-02-11,N32E035,2055.0,792.0,231.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m00,32.4293,35.2225,2000-02-11,N32E035,2055.0,801.0,231.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m01,32.4293,35.225054,2000-02-11,N32E035,2055.0,810.0,234.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m1-1,32.43147,35.219946,2000-02-11,N32E035,2047.0,792.0,231.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m10,32.43147,35.2225,2000-02-11,N32E035,2047.0,801.0,233.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+modis,m11,32.43147,35.225054,2000-02-11,N32E035,2047.0,810.0,235.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+srtm,E,32.4293,35.223458,2000-02-11,N32E035,2055.0,804.0,234.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+srtm,N,32.430108,35.2225,2000-02-11,N32E035,2052.0,801.0,232.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+srtm,S,32.428492,35.2225,2000-02-11,N32E035,2057.0,801.0,235.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+srtm,W,32.4293,35.221542,2000-02-11,N32E035,2055.0,798.0,230.0,202.0,SRTM swath count (non-voided swaths) Actual=2
+srtm,center,32.4293,35.2225,2000-02-11,N32E035,2055.0,801.0,231.0,202.0,SRTM swath count (non-voided swaths) Actual=2

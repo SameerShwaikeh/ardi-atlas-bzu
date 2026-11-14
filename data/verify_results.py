@@ -143,7 +143,7 @@ else:
 NUMRE = re.compile(r"(?<![\w.])\d+(?:\.\d+)?")
 try:
     facts = open("facts.md", encoding="utf-8").read()
-    src = "".join(open(f, encoding="utf-8").read() for f in ("ardi_summary.md", "ardi_data.json", "power_meta.json") if os.path.exists(f))
+    src = "".join(open(f, encoding="utf-8").read() for f in ("ardi_summary.md", "ardi_data.json", "power_meta.json", "ndvi_monthly.csv") if os.path.exists(f))
     tpl_path = next(iter(glob.glob("../drafts_from_claude/facts_TEMPLATE.md")), None)
     tpl = set(NUMRE.findall(open(tpl_path, encoding="utf-8").read())) if tpl_path else set()
     # URLs are not data values
