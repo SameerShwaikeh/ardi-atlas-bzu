@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ardi · أرضي — stress-test your rotation against the dry year</title>
+<!--
+  ardi_base.html — clean base for the Ardi demo, made from "Field Shift — Rotation Explorer".
+  Contains NO data values. Every number is a "—" placeholder filled from JSON at runtime.
+  JSON field paths marked "ASSUMED" are guesses: rename them to match Mahmoud's ardi_data.json / crops.json.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Ready-made scoring engine (provides window.ArdiScoring.rank(data, crops, weights)) -->
+<script src="scoring.js"></script>
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f5f1e8; --surface:#fffdf8; --surface-2:#efe9dc; --line:#dcd3c0;
+  --ink:#1d1b16; --ink-2:#4d4a43; --ink-3:#7a766c;
+  --leaf:#2f6b2f; --leaf-2:#e7f1e3; --sky:#2a78d6;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --good:#1f7a3a; --warn:#94600a; --bad:#a8251c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif}
+[lang=ar],[dir=rtl]{font-family:"Noto Naskh Arabic",Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.2;margin:0}
+h1{font-size:26px} h2{font-size:23px} h3{font-size:19px}
+p{margin:.4em 0}
+button{font:inherit;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:14px 12px 70px}
+.ar{display:block;direction:rtl;text-align:right;color:var(--ink-2)}
+.ar-inline{direction:rtl;unicode-bidi:isolate}
+.top{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:var(--leaf);display:grid;place-items:center;color:#fff;font-size:22px}
+.tagline{color:var(--ink-2);font-size:14.5px}
+.banner{background:#b3261e;color:#fff;border-radius:12px;padding:12px 14px;margin-bottom:12px;font-weight:600}
+.reminder{background:#fff6dd;border:1px solid #ead39a;border-radius:12px;padding:10px 14px;font-size:14.5px;color:#5b4410;margin-bottom:14px}
+.steps{display:flex;gap:6px;margin:4px 0 14px;flex-wrap:wrap}
+.stepdot{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink-3)}
+.stepdot b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);font-size:12px}
+.stepdot[aria-current=step]{border-color:var(--leaf);color:var(--leaf)}
+.stepdot[aria-current=step] b{background:var(--leaf);color:#fff}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}
+.q{margin-top:18px}
+.qh{font-weight:700;font-size:17px;margin-bottom:8px}
+.small{font-size:13.5px;color:var(--ink-3)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+@media (max-width:480px){.tiles{grid-template-columns:1fr}}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border:2px solid var(--line);border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:4px;min-height:60px}
+.tile:focus-visible{outline:3px solid #2a78d655;outline-offset:2px}
+.tile[aria-pressed=true]{border-color:var(--leaf);background:var(--leaf-2)}
+.tile[aria-disabled=true]{cursor:not-allowed;opacity:.7;background:var(--surface-2)}
+.tile .ic{font-size:26px;line-height:1}
+.tile .t{font-weight:700;font-size:16px}
+.tile .d{font-size:13.5px;color:var(--ink-3)}
+.soon{align-self:flex-start;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:#fff0cc;color:#6b4a00}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn{cursor:pointer;font-weight:700;font-size:16px;border:2px solid var(--leaf);background:var(--leaf);color:#fff;border-radius:12px;padding:11px 18px}
+.btn.ghost{background:#fff;color:var(--leaf)}
+.btn.small{font-size:14px;padding:7px 12px;border-radius:10px}
+.presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 14px}
+@media (max-width:640px){.presets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.preset{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 6px;font-weight:700;font-size:15px}
+.preset .ar{text-align:center;font-weight:600;font-size:14px}
+.preset[aria-pressed=true]{border-color:var(--leaf);background:var(--leaf-2)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+@media (min-width:760px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fact{background:var(--surface-2);border-radius:12px;padding:11px}
+.fact .k{font-size:13.5px;color:var(--ink-2)}
+.fact .v{font-family:Fraunces,serif;font-size:24px;font-weight:700}
+.fact .src{font-size:11.5px;color:var(--ink-3)}
+.dryline{margin-top:14px;border-left:4px solid #c98500;background:#fff4dc;padding:10px 12px;border-radius:0 10px 10px 0}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:960px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-top:6px solid var(--c);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.badge{align-self:flex-start;font-size:12.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;border-radius:999px;padding:3px 10px;background:var(--surface-2);color:var(--ink-2)}
+.scores{display:grid;gap:5px}
+.srow{display:grid;grid-template-columns:1fr auto;gap:8px;font-size:15px;border-bottom:1px dashed var(--line);padding-bottom:4px}
+.srow .v{font-weight:700;font-variant-numeric:tabular-nums}
+.pass{font-size:14.5px;border-radius:10px;padding:7px 10px;background:var(--surface-2)}
+.sure{font-size:14px;border-radius:10px;padding:7px 10px;background:var(--surface-2)}
+details{border-top:1px solid var(--line);padding-top:8px}
+details summary{cursor:pointer;font-weight:700;font-size:15px}
+details h4{margin:10px 0 2px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+details p{font-size:14.5px;color:var(--ink-2)}
+.arcard{direction:rtl;text-align:right;background:#fff;border:2px solid var(--leaf);border-radius:18px;padding:18px}
+.arcard h2,.arcard h3{font-family:"Noto Naskh Arabic",serif}
+.arcard .row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:17px}
+.arcard .row b{font-variant-numeric:tabular-nums}
+textarea.sum{width:100%;min-height:140px;font:13.5px/1.5 ui-monospace,monospace;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}
+.hidden{display:none!important}
+
+.chartbox{margin-top:12px;background:var(--surface-2);border-radius:14px;padding:12px}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .ax{font:11px Inter,sans-serif;fill:var(--ink-3)}
+.chart .dryax{fill:#a35f00;font-weight:700}
+.chart .bar{fill:#5b8fd0}
+.chart .bar.dry{fill:#c98500}
+.chart .mean{stroke:var(--ink-3);stroke-dasharray:4 4}
+.src{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.backtest{border-left-color:var(--leaf);background:var(--leaf-2)}
+.plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.plan span{background:var(--surface-2);border-radius:10px;padding:6px 8px;font-size:12px;color:var(--ink-3);display:grid}
+.plan b{font-size:14px;color:var(--ink)} .plan i{font-style:normal;font-size:13px;direction:rtl;text-align:right}
+.mbar{display:inline-block;width:70px;height:8px;border-radius:99px;background:var(--surface-2);margin-right:8px;vertical-align:middle;overflow:hidden}
+.mbar i{display:block;height:100%;background:var(--c)}
+.ns{font-size:12.5px;font-weight:600;color:var(--ink-3);background:var(--surface-2);border-radius:999px;padding:1px 9px}
+.srow.tot{border-bottom:0}
+.pass.ok{background:#e7f3e7;color:#1f5a1f} .pass.no{background:#fbe6e3;color:#8a2017}
+.arsay{font-size:19px;line-height:1.8;background:var(--leaf-2);border-radius:12px;padding:12px}
+.entrans{margin-top:12px}
+.foot{margin-top:18px}
+.banner .ar{color:#fff}
+.benefit{margin:0;font-size:14.5px;background:var(--leaf-2);border-radius:10px;padding:7px 10px}
+.partial{font-size:12px;font-weight:600;color:var(--warn);margin-left:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="logo" aria-hidden="true">🌱</div>
+    <div>
+      <h1>Ardi <span class="ar-inline" lang="ar">· أرضي</span></h1>
+      <div class="tagline">Stress-test your rotation against the dry year <span class="ar-inline" lang="ar">· اختبر دورتك الزراعية أمام سنة الجفاف</span></div>
+    </div>
+  </header>
+
+  <div class="banner hidden" id="placeholderBanner" role="alert">
+    ⚠ TEST DATA — these are not real NASA values. <span class="ar" lang="ar">بيانات تجريبية — ليست قيم ناسا الحقيقية.</span>
+  </div>
+  <div class="banner hidden" id="loadError" role="alert"></div>
+
+  <div class="reminder">👩‍🌾 <b>You know your land best.</b> Ardi compares rotations using NASA's records for your area, so use it as a guide, not a rule.
+    <span class="ar" lang="ar">أنت أعلم بأرضك. يقارن «أرضي» الدورات الزراعية بسجلات ناسا لمنطقتك، فاعتبره دليلاً لا قاعدة.</span></div>
+
+  <nav class="steps" id="steps" aria-label="Steps"></nav>
+
+  <section class="panel screen" id="screen-field" data-step="1">
+    <h2>1. Your field <span class="ar-inline" lang="ar">· أرضك</span></h2>
+    <div class="q"><div class="qh">Where is your field? <span class="ar-inline" lang="ar">أين أرضك؟</span></div>
+      <div class="tiles">
+        <button class="tile" type="button" aria-pressed="true">
+          <span class="ic" aria-hidden="true">🌾</span>
+          <span class="t" id="pointName">—</span>
+          <span class="ar" lang="ar">سهل جنين — نقطة تجريبية</span>
+          <span class="d" id="pointCoords">—</span>
+        </button>
+        <button class="tile" type="button" aria-disabled="true" disabled>
+          <span class="ic" aria-hidden="true">🗺️</span>
+          <span class="t">Find by parcel number</span>
+          <span class="ar" lang="ar">ابحث برقم الحوض والقطعة</span>
+          <span class="soon">Preview — coming later · قريباً</span>
+        </button>
+      </div>
+    </div>
+    <div class="q"><div class="qh">What do you grow now? <span class="ar-inline" lang="ar">ماذا تزرع الآن؟</span></div>
+      <p class="small">Pick the rotation closest to what you grow today. It stays on the first card so you can compare.</p>
+      <div class="tiles" id="rotationTiles"></div>
+    </div>
+    <div class="nav"><span></span><button class="btn" type="button" data-go="2">Next · التالي →</button></div>
+  </section>
+
+  <section class="panel screen hidden" id="screen-nasa" data-step="2">
+    <h2>2. What NASA saw in your area <span class="ar-inline" lang="ar">· ماذا رصدت ناسا في منطقتك</span></h2>
+    <p class="small">Satellite and grid records describe the area around the field, not the plot itself.</p>
+    <div class="chartbox">
+      <div class="qh">Rain each season, October–May <span class="ar-inline" lang="ar">مطر كل موسم</span></div>
+      <div id="rainChart" class="chart">—</div>
+      <div class="src" id="srcRain">—</div>
+    </div>
+    <div class="dryline" id="dryLine">—</div>
+    <div class="facts">
+      <div class="fact"><div class="k">☀️ Dry spells ≥10 days, Jan–Mar<span class="ar" lang="ar">فترات جفاف ١٠ أيام فأكثر</span></div><div class="v" id="fDry">—</div><div class="src">average per season · IMERG</div></div>
+      <div class="fact"><div class="k">⛈️ Heavy-rain days ≥20 mm<span class="ar" lang="ar">أيام المطر الغزير</span></div><div class="v" id="fHeavy">—</div><div class="src">average per season · IMERG</div></div>
+      <div class="fact"><div class="k">🔥 Heat days &gt;32 °C, Mar–May<span class="ar" lang="ar">أيام الحر الشديد</span></div><div class="v" id="fHeat">—</div><div class="src" id="srcTemp">—</div></div>
+      <div class="fact"><div class="k">❄️ Frost days, Oct–May<span class="ar" lang="ar">أيام الصقيع</span></div><div class="v" id="fFrost">—</div><div class="src">average per season · likely under-counted (grid-cell average)</div></div>
+      <div class="fact"><div class="k">▫️ Bare months a year (NDVI &lt; 0.2)<span class="ar" lang="ar">أشهر الأرض المكشوفة</span></div><div class="v" id="fBare">—</div><div class="src" id="srcNdvi">—</div></div>
+      <div class="fact"><div class="k">⛰️ Slope<span class="ar" lang="ar">الانحدار</span></div><div class="v" id="fSlope">—</div><div class="src" id="srcSlope">—</div></div>
+    </div>
+    <div class="dryline backtest" id="backtest">—</div>
+    <div class="nav"><button class="btn ghost" type="button" data-go="1">← Back</button><button class="btn" type="button" data-go="3">See my options · خياراتي →</button></div>
+  </section>
+
+  <section class="screen hidden" id="screen-cards" data-step="3">
+    <div class="panel">
+      <h2>3. Your 3 options <span class="ar-inline" lang="ar">· خياراتك الثلاثة</span></h2>
+      <div class="qh" style="margin-top:12px">What matters most? <span class="ar-inline" lang="ar">ما الأهم لك؟</span></div>
+      <div class="presets" id="presets">
+        <button class="preset" type="button" data-preset="water">💧 Save water<span class="ar" lang="ar">توفير الماء</span></button>
+        <button class="preset" type="button" data-preset="soil">🪱 Soil first<span class="ar" lang="ar">التربة أولاً</span></button>
+        <button class="preset" type="button" data-preset="income">💰 Income<span class="ar" lang="ar">الدخل</span></button>
+        <button class="preset" type="button" data-preset="balanced" aria-pressed="true">⚖️ Balanced<span class="ar" lang="ar">متوازن</span></button>
+      </div>
+      <div class="cards" id="cards"></div>
+      <p class="small" style="margin-top:10px">Scores run from 0 to 100 and are rule-based indicators, not yield forecasts. "Not scored" means a crop value is still missing; we never fill gaps with guesses.</p>
+      <p class="small" id="stageNote" style="margin-top:6px">—</p>
+      <p class="small" id="priceNote" style="margin-top:6px">—</p>
+    </div>
+    <div class="nav"><button class="btn ghost" type="button" data-go="2">← Back</button><button class="btn" type="button" data-go="4">Farmer card · بطاقة المزارع →</button></div>
+  </section>
+
+  <section class="screen hidden" id="screen-arabic-card" data-step="4">
+    <div class="arcard" dir="rtl" lang="ar" id="arCard">
+      <h2>أرضي — بطاقة المزارع</h2>
+      <p class="arsay" id="arSay">—</p>
+      <div class="row"><span>دورتك الحالية</span><b id="arCurrent">—</b></div>
+      <div class="row"><span>الخيار الأنسب لأولوياتك</span><b id="arBest">—</b></div>
+      <div class="row"><span>سنة الجفاف (خامس أجفّ موسم)</span><b id="arDrySeason">—</b></div>
+      <div class="row"><span>هل يصمد الخيار في سنة الجفاف؟</span><b id="arBestDry">—</b></div>
+      <div class="row"><span>مدى ثقتنا</span><b id="arSure">—</b></div>
+      <p style="margin-top:12px">⚠️ هذه أفكار للنقاش وليست توصية. أنت أدرى بأرضك، فاعتبرها دليلاً لا قاعدة.</p>
+    </div>
+    <div class="panel entrans" dir="ltr">
+      <div class="qh">English, for judges</div>
+      <p id="enSay">—</p>
+      <p class="small" id="enRows">—</p>
+      <p class="small">"These are ideas to discuss, not a recommendation. You know your land best, so use this as a guide, not a rule."</p>
+    </div>
+    <div class="nav"><button class="btn ghost" type="button" data-go="3">← Back</button><button class="btn ghost" type="button" data-go="1">Start again · من البداية</button></div>
+  </section>
+
+  <footer class="small foot" id="foot">—</footer>
+</div>
+
+<script>
+/* Ardi demo: reads ardi_data.json (fallback ardi_data.placeholder.json) + crops.json, scores with scoring.js.
+   Contract: DATA_CONTRACT.md v1. Every number on screen comes from those files. Built from Tia's ardi_base.html. */
+const $ = id => document.getElementById(id);
+const DASH = '—';
+const S = { step: 1, data: null, crops: null, current: null, preset: 'balanced', ranked: null };
+const WEIGHTS = {  // preferences, not data (team to confirm)
+  water:    { water: 0.55, stageRisk: 0.15, soil: 0.15, income: 0.15 },
+  soil:     { water: 0.15, stageRisk: 0.15, soil: 0.55, income: 0.15 },
+  income:   { water: 0.15, stageRisk: 0.15, soil: 0.15, income: 0.55 },
+  balanced: { water: 0.25, stageRisk: 0.25, soil: 0.25, income: 0.25 }
+};
+const SCORE_LABELS = [['water', 'Water', 'الماء'], ['stageRisk', 'Stage risk', 'خطر مراحل النمو'], ['soil', 'Soil', 'التربة'], ['income', 'Income', 'الدخل']];
+const isNum = x => typeof x === 'number' && isFinite(x);
+const avg = a => { a = a.filter(isNum); return a.length ? a.reduce((s, x) => s + x, 0) / a.length : null; };
+const fmt = (v, d = 1) => isNum(v) ? (+v.toFixed(d)).toString() : DASH;
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function set(id, v) { const el = $(id); if (el) el.textContent = (v === undefined || v === null || v === '') ? DASH : String(v); }
+const ds = id => (S.data && (S.data.datasets || []).find(d => d.id === id)) || null;
+const cropName = (id, lang) => { const c = S.crops && S.crops.crops.find(x => x.id === id); return c ? (lang === 'ar' ? c.name_ar : c.name_en) : id; };
+const cycleText = (cyc, lang) => (cyc || []).map(id => cropName(id, lang)).join(' ↔ ');
+
+async function loadJSON(url) {  // tries the same folder first, then ../data/ (GitHub repo layout)
+  let last;
+  for (const u of [url, '../data/' + url]) {
+    try { const r = await fetch(u, { cache: 'no-store' }); if (r.ok) return await r.json(); last = u + ' ' + r.status; } catch (e) { last = u + ' ' + e.message; }
+  }
+  throw new Error(last);
+}
+async function loadData() {
+  const errs = [];
+  try { S.data = await loadJSON('ardi_data.json'); }
+  catch (e) { try { S.data = await loadJSON('ardi_data.placeholder.json'); } catch (e2) { S.data = null; errs.push('No data file found (ardi_data.json).'); } }
+  try { S.crops = await loadJSON('crops.json'); } catch (e) { S.crops = null; errs.push('crops.json not found.'); }
+  $('placeholderBanner').classList.toggle('hidden', !(S.data && S.data.placeholder === true));
+  if (errs.length) { $('loadError').textContent = '⚠ ' + errs.join(' ') + ' Open this page through a web server (python -m http.server), not by double-clicking.'; $('loadError').classList.remove('hidden'); }
+}
+
+function renderField() {
+  const p = (S.data && S.data.point) || {};
+  set('pointName', p.name || 'Jenin plain pilot point');
+  set('pointCoords', isNum(p.lat) && isNum(p.lon) ? `${p.lat.toFixed(3)}° N, ${p.lon.toFixed(3)}° E` : 'coordinates: not set');
+  const rots = (S.crops && S.crops.rotations) || [];
+  if (!S.current && rots.length) S.current = (rots.find(r => r.is_current) || rots[0]).id;
+  $('rotationTiles').innerHTML = rots.length ? rots.map(r => `<button class="tile" type="button" data-rot="${esc(r.id)}" aria-pressed="${r.id === S.current}">
+      <span class="t">${esc(r.id)} · ${esc(r.label_en)}</span><span class="d">${esc(cycleText(r.cycle, 'en'))}</span>
+      <span class="ar" lang="ar">${esc(r.label_ar || '')} · ${esc(cycleText(r.cycle, 'ar'))}</span></button>`).join('')
+    : `<p class="small">crops.json not loaded</p>`;
+  $('rotationTiles').querySelectorAll('[data-rot]').forEach(b => b.onclick = () => { S.current = b.dataset.rot; renderField(); });
+}
+
+function renderNasa() {
+  const d = S.data || {}, seasons = d.seasons || [], dl = d.dry_line;
+  const rs = seasons.filter(s => isNum(s.rain_mm));
+  if (rs.length) {
+    const W = 680, H = 210, L = 38, B = 28, T = 10, max = Math.max(...rs.map(s => s.rain_mm)) * 1.08;
+    const bw = (W - L - 6) / rs.length, y = v => T + (H - T - B) * (1 - v / max);
+    const step = max > 600 ? 200 : 100, ticks = []; for (let t = 0; t <= max; t += step) ticks.push(t);
+    const meanR = avg(rs.map(s => s.rain_mm));
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Oct–May rain per season">`;
+    ticks.forEach(t => svg += `<line x1="${L}" x2="${W}" y1="${y(t)}" y2="${y(t)}" class="grid"/><text x="${L - 5}" y="${y(t) + 4}" text-anchor="end" class="ax">${t}</text>`);
+    const every = Math.ceil(rs.length / 7);
+    rs.forEach((s, i) => {
+      const isDry = dl && s.season === dl.season, x = L + i * bw + bw * 0.12;
+      svg += `<rect x="${x}" y="${y(s.rain_mm)}" width="${bw * 0.76}" height="${H - B - y(s.rain_mm)}" class="${isDry ? 'bar dry' : 'bar'}"><title>${s.season}: ${fmt(s.rain_mm, 0)} mm (rank ${s.rank_driest})</title></rect>`;
+      if (isDry || (i % every === 0 && !(dl && Math.abs(rs.findIndex(z => z.season === dl.season) - i) < every))) svg += `<text x="${x + bw * 0.38}" y="${H - 10}" text-anchor="middle" class="${isDry ? 'ax dryax' : 'ax'}">${s.season}</text>`;
+    });
+    if (isNum(meanR)) svg += `<line x1="${L}" x2="${W}" y1="${y(meanR)}" y2="${y(meanR)}" class="mean"/><text x="${W - 4}" y="${y(meanR) - 5}" text-anchor="end" class="ax">mean ${fmt(meanR, 0)} mm</text>`;
+    svg += `<text x="4" y="${T + 8}" class="ax">mm</text></svg>`;
+    $('rainChart').innerHTML = svg;
+  } else $('rainChart').textContent = 'No rain data yet.';
+  set('srcRain', ds('imerg') ? ds('imerg').label : (ds('power') ? ds('power').label : 'Source not loaded'));
+  $('dryLine').innerHTML = dl
+    ? `<b>The dry year · سنة الجفاف:</b> season ${esc(dl.season)}, ${fmt(dl.rain_mm, 0)} mm (${fmt(dl.pct_of_mean, 0)}% of the ${dl.n_seasons}-season mean): the 5th-driest of ${dl.n_seasons} seasons. Every option is also checked against this season. It's a stress test from history, not a forecast.
+       <span class="ar" lang="ar">موسم ${esc(dl.season)}: ${fmt(dl.rain_mm, 0)} ملم — خامس أجفّ موسم من بين ${dl.n_seasons} موسماً.</span>`
+    : 'Dry-year line: not available yet.';
+  set('fDry', fmt(avg(seasons.map(s => s.dry_spells_10d_jfm)), 1));
+  set('fHeavy', fmt(avg(seasons.map(s => s.days_ge20mm)), 1));
+  set('fHeat', fmt(avg(seasons.map(s => s.heat_days_mam)), 1));
+  set('fFrost', fmt(avg(seasons.map(s => s.frost_days)), 1));
+  set('fBare', fmt(avg(seasons.map(s => s.bare_months)), 1));
+  set('fSlope', d.slope && isNum(d.slope.slope_pct) ? (d.slope.slope_pct < 1 ? 'flat (<1 %)' : d.slope.slope_pct + ' %') : DASH);
+  set('srcTemp', ds('power') ? ds('power').label : 'NASA POWER: not loaded');
+  set('srcNdvi', ds('modis') ? ds('modis').label : 'MODIS NDVI: not loaded yet');
+  set('srcSlope', ds('srtm') ? ds('srtm').label : 'SRTM: not loaded yet');
+  const bt = d.backtest;
+  $('backtest').innerHTML = bt
+    ? `<b>Does the vegetation record agree with the rain record?</b> In ${bt.driest_below_mean} of the ${bt.rows.length} driest seasons, the vegetation peak (MODIS NDVI) was below normal (rank correlation rain vs NDVI ρ = ${fmt(bt.spearman_rain_vs_ndvi, 2)}, ${bt.n_seasons} seasons). Two independent instruments; a weak link is reported, not hidden.`
+    : 'Vegetation check (MODIS NDVI vs rain): not available yet.';
+}
+
+function confidence(r) {
+  if (!r) return [DASH, DASH];
+  if (r.placeholderData) return ['Test data only', 'بيانات تجريبية فقط'];
+  if (r.notScored.length) return ['Low: some crop values missing', 'منخفضة — بعض قيم المحاصيل ناقصة'];
+  if (r.illustrative) return ['Medium: crop values are our assumptions', 'متوسطة — قيم المحاصيل افتراضات'];
+  return ['Higher: sourced values, still check locally', 'أعلى — قيم موثقة، تحقق محلياً'];
+}
+function cardText(r) {
+  const why = [], ev = [], gaps = [], check = [];
+  const cur = r.rotation.is_current;
+  why.push(cur ? 'This is what you grow now, kept here so you can compare.' :
+    r.rotation.id === 'B' ? 'A legume year between cereals breaks the cereal disease and pest cycle and adds nitrogen.' :
+    r.rotation.id === 'C' ? 'Barley and bitter vetch need less water; vetch also gives forage for livestock.' : (r.rotation.note || ''));
+  if (r.filter && !r.filter.pass) why.push('Breaks the crop-family rule: ' + r.filter.breaks.join('; ') + '.');
+  if (isNum(r.scores.water)) ev.push(`In ${Math.round(r.scores.water * 100)}% of past seasons, rain met these crops' needs (IMERG).`);
+  if (isNum(r.scores.stageRisk)) ev.push(`${Math.round(r.scores.stageRisk * 100)}% of seasons had no heat or long dry spell at the sensitive stage (POWER, IMERG).`);
+  if (r.dry) ev.push(`Dry season ${r.dry.season} (${fmt(r.dry.rain_mm, 0)} mm): ${r.dry.pass ? 'all crops fit' : 'not enough rain for ' + r.dry.failing.join(', ')}.`);
+  if (!ev.length) ev.push('No scored evidence yet: crop values are still missing.');
+  if (r.notScored.length) gaps.push('Not scored yet: ' + r.notScored.map(k => SCORE_LABELS.find(x => x[0] === k)[1].toLowerCase()).join(', ') + '.');
+  if (r.illustrative) gaps.push('Crop values or this rotation are illustrative until a farmer or agronomist confirms them.');
+  gaps.push('Satellite data describe the area, not your exact plot.');
+  check.push('Sowing dates and varieties for your village.');
+  if (r.plan.some(id => id === 'lentil' || id === 'bitter_vetch')) check.push('Broomrape (Orobanche) risk in lentil and vetch.');
+  if (r.plan.includes('bitter_vetch')) check.push('Vetch adds less nitrogen if cut for hay; do you have livestock or a buyer?');
+  if (cur && r.filter && !r.filter.pass) check.push('Disease build-up from cereal after cereal.');
+  return { why: why.join(' '), evidence: ev.join(' '), gaps: gaps.join(' '), check: check.join(' ') };
+}
+function runScoring() {
+  S.ranked = null;
+  if (!(window.ArdiScoring && S.data && S.crops)) { renderCards(); return; }
+  const crops = JSON.parse(JSON.stringify(S.crops));
+  crops.rotations.forEach(r => r.is_current = (r.id === S.current));
+  try { S.ranked = ArdiScoring.rank(S.data, crops, WEIGHTS[S.preset]).slice(0, 3); }
+  catch (e) { console.error(e); }
+  renderCards();
+}
+const minRain = id => { const c = S.crops && S.crops.crops.find(x => x.id === id); return c && isNum(c.min_season_rain_mm) ? c.min_season_rain_mm : null; };
+function benefit(r) {  // one-line "Benefits"; rain numbers come from crops.json
+  const w = minRain('wheat'), l = minRain('lentil'), b = minRain('barley'), id = r.rotation.id;
+  if (id === 'B') return isNum(l) && isNum(w)
+    ? { en: `Lentil needs less rain than wheat (${l} vs ${w} mm minimum) and feeds the soil.`, ar: `العدس يحتاج مطراً أقل من القمح (${l} مقابل ${w} ملم كحد أدنى) ويغذّي التربة.` }
+    : { en: 'Lentil needs less rain than wheat and feeds the soil.', ar: 'العدس يحتاج مطراً أقل من القمح ويغذّي التربة.' };
+  if (id === 'C') return isNum(b) && isNum(w)
+    ? { en: `Barley copes with low rain (${b} vs ${w} mm minimum for wheat); vetch feeds the soil and your animals.`, ar: `الشعير يتحمّل قلّة المطر (${b} مقابل ${w} ملم كحد أدنى للقمح)، والكرسنة تغذّي التربة والمواشي.` }
+    : { en: 'Barley copes with low rain; vetch feeds the soil and your animals.', ar: 'الشعير يتحمّل قلّة المطر، والكرسنة تغذّي التربة والمواشي.' };
+  if (id === 'A') return { en: 'Familiar crop, no change needed, but no legume to feed the soil.', ar: 'محصول مألوف ولا يحتاج تغييراً، لكن لا توجد بقوليات تغذّي التربة.' };
+  return null;
+}
+function renderNotes() {
+  const T = window.ArdiScoring && ArdiScoring.THRESHOLDS;
+  if (T) $('stageNote').innerHTML = `<b>Stage risk:</b> a season counts as a hit if it has ${T.heatDays}+ days above 32 °C in March–May, or ${T.drySpells}+ dry spells of 10+ days in January–March. These cut-offs are our choice, not a published threshold.
+    <span class="ar" lang="ar">خطر مراحل النمو: يُحتسب الموسم «ضربة» إذا فيه ${T.heatDays} أيام أو أكثر فوق 32 °م بين آذار وأيار، أو ${T.drySpells} فترات جفاف أو أكثر (10 أيام فأكثر) بين كانون الثاني وآذار. هذه الحدود اختيارنا وليست رقماً منشوراً.</span>`;
+  const cs = ((S.crops && S.crops.crops) || []).filter(c => isNum(c.price_ils_t));
+  $('priceNote').innerHTML = cs.length
+    ? `<b>Income prices (NIS per tonne):</b> ${cs.map(c => `${esc(c.name_en.replace(/ \(.*\)/, '').toLowerCase())} ${c.price_ils_t}`).join(', ')}. Wheat and barley are PCBS 2021 farm-gate averages; lentil and bitter vetch are our assumptions until a farmer confirms them.
+      <span class="ar" lang="ar">أسعار الدخل تقريبية: القمح والشعير متوسطات الإحصاء الفلسطيني لعام 2021، أما العدس والكرسنة فهي افتراضاتنا حتى يؤكدها مزارع.</span>`
+    : 'Income prices: not loaded yet, so Income is not scored.';
+}
+function renderCards() {
+  const R = S.ranked || [], cols = ['var(--s1)', 'var(--s2)', 'var(--s3)'];
+  $('cards').innerHTML = R.length ? R.map((r, i) => {
+    const t = cardText(r), sure = confidence(r)[0];
+    const bars = SCORE_LABELS.map(([k, en, ar]) => {
+      const v = r.scores[k];
+      return `<div class="srow"><span>${en} · <span lang="ar">${ar}</span></span>${isNum(v)
+        ? `<span class="v"><span class="mbar"><i style="width:${Math.round(v * 100)}%"></i></span>${Math.round(v * 100)}</span>`
+        : `<span class="ns">not scored</span>`}</div>`; }).join('');
+    return `<article class="card" style="--c:${cols[i]}">
+      <span class="badge">${r.rotation.is_current ? 'What you grow now' : (i === 1 ? (r.notScored.length ? 'Ranked first so far' : 'Best for your priority') : 'Another option')}${r.illustrative ? ' · illustrative' : ''}</span>
+      <h3>${esc(r.rotation.id)} · ${esc(r.rotation.label_en)}</h3>
+      <span class="ar" lang="ar">${esc(r.rotation.label_ar || '')}</span>
+      ${(() => { const b = benefit(r); return b ? `<p class="benefit"><b>Benefits · الفوائد:</b> ${esc(b.en)}<span class="ar" lang="ar">${esc(b.ar)}</span></p>` : ''; })()}
+      <div class="plan">${r.plan.map((id, k) => `<span>Season ${k + 1}<b>${esc(cropName(id, 'en'))}</b><i lang="ar">${esc(cropName(id, 'ar'))}</i></span>`).join('')}</div>
+      <div class="pass ${r.filter.pass ? 'ok' : 'no'}">Crop-family rule · قاعدة العائلة: ${r.filter.pass ? 'pass ✓' : 'breaks it ✗'}</div>
+      <div class="scores">${bars}
+        <div class="srow tot"><span><b>Overall for your priority</b></span>${isNum(r.total) ? `<span class="v">${Math.round(r.total * 100)}${r.notScored.length ? `<span class="partial">partial · ${4 - r.notScored.length} of 4 scored</span>` : ''}</span>` : `<span class="ns">not scored</span>`}</div></div>
+      <div class="pass ${r.dry ? (r.dry.pass ? 'ok' : 'no') : ''}">Dry season ${r.dry ? esc(r.dry.season) : ''} · سنة الجفاف: ${r.dry ? (r.dry.pass ? 'holds up ✓' : 'fails ✗ (' + esc(r.dry.failing.join(', ')) + ')') : 'not checked yet'}</div>
+      <div class="sure">How sure are we? · مدى ثقتنا: ${esc(sure)}</div>
+      <details open><summary>Why, evidence, and what to check</summary>
+        <h4>Why it's here</h4><p>${esc(t.why)}</p>
+        <h4>Evidence from NASA data</h4><p>${esc(t.evidence)}</p>
+        <h4>What we don't know</h4><p>${esc(t.gaps)}</p>
+        <h4>Check with a local expert</h4><p>${esc(t.check)}</p>
+      </details></article>`; }).join('') : '<p class="small">Scores appear once ardi_data.json and crops.json are loaded.</p>';
+  renderArabic();
+}
+
+function renderArabic() {
+  const R = S.ranked || [], cur = R[0], best = R[1], dl = S.data && S.data.dry_line;
+  set('arCurrent', cur ? cycleText(cur.rotation.cycle, 'ar') : DASH);
+  set('arBest', best ? cycleText(best.rotation.cycle, 'ar') : DASH);
+  set('arDrySeason', dl ? `${dl.season} · ${fmt(dl.rain_mm, 0)} ملم` : DASH);
+  set('arBestDry', best && best.dry ? (best.dry.pass ? 'نعم ✓' : 'لا ✗') : 'لم يُفحص بعد');
+  set('arSure', confidence(best)[1]);
+  set('arSay', best ? (best.rotation.card_ar || '[جملة رنا للبطاقة — لم تُضف بعد]') : DASH);
+  set('enSay', best ? (best.rotation.card_en || "[Rana's card sentence — not added yet]") : DASH);
+  set('enRows', best ? `Current: ${cycleText(cur.rotation.cycle, 'en')} · Best for your priority: ${cycleText(best.rotation.cycle, 'en')} · Dry season ${dl ? dl.season : DASH}: ${best.dry ? (best.dry.pass ? 'holds up' : 'fails') : 'not checked'} · Confidence: ${confidence(best)[0]}` : DASH);
+}
+
+function renderSteps() {
+  const names = ['Field · الأرض', 'NASA · ناسا', 'Options · الخيارات', 'Card · البطاقة'];
+  $('steps').innerHTML = names.map((n, i) => `<button class="stepdot" type="button" data-go="${i + 1}" ${i + 1 === S.step ? 'aria-current="step"' : ''}><b>${i + 1}</b>${n}</button>`).join('');
+  $('steps').querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(+b.dataset.go));
+}
+function go(n) {
+  S.step = n;
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('hidden', +s.dataset.step !== n));
+  renderSteps(); if (n === 2) renderNasa(); if (n >= 3) runScoring();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+async function init() {
+  document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => go(+b.dataset.go));
+  document.querySelectorAll('[data-preset]').forEach(b => b.onclick = () => {
+    S.preset = b.dataset.preset; document.querySelectorAll('[data-preset]').forEach(x => x.setAttribute('aria-pressed', x === b)); runScoring(); });
+  renderSteps();
+  await loadData();
+  renderField(); renderNasa(); renderNotes(); runScoring();
+  const sets = (S.data && S.data.datasets || []).map(x => x.id.toUpperCase()).join(' · ');
+  $('foot').textContent = `Data: ${sets || 'not loaded'}${S.data && S.data.generated ? ' · generated ' + S.data.generated : ''}. Team Atlas BZU · NASA Space Apps 2026 · Field Shift. Supports farmers' judgment; never replaces it.`;
+  const q = new URLSearchParams(location.search).get('step'); if (q) go(+q);
+}
+init();
+</script>
+</body>
+</html>
