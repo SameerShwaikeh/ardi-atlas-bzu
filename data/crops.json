@@ -15,9 +15,10 @@
    },
    "bare_months_typical": 6,
    "yield_t_ha": 1.6,
-   "price_ils_t": null,
+   "price_ils_t": 1766,
    "status": "illustrative",
    "sources": [
+    "https://pcbs.gov.ps/Portals/_Rainbow/Documents/Other-2021-E-16.htm",
     "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=10582",
     "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
@@ -40,9 +41,10 @@
    },
    "bare_months_typical": 6,
    "yield_t_ha": 1.4,
-   "price_ils_t": null,
+   "price_ils_t": 2344,
    "status": "illustrative",
    "sources": [
+    "https://pcbs.gov.ps/Portals/_Rainbow/Documents/Other-2021-E-16.htm",
     "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=1232",
     "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
@@ -64,9 +66,10 @@
    },
    "bare_months_typical": 6,
    "yield_t_ha": 1.16,
-   "price_ils_t": null,
+   "price_ils_t": 4300,
    "status": "illustrative",
    "sources": [
+    "https://www.un.org/unispal/wp-content/uploads/2022/08/WFPMOMKTDBJUNE22_300622.pdf",
     "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=7209",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
     "https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/palestine-lentils-yield",
@@ -90,9 +93,10 @@
    },
    "bare_months_typical": 6,
    "yield_t_ha": 1.29,
-   "price_ils_t": null,
+   "price_ils_t": 2300,
    "status": "illustrative",
    "sources": [
+    "https://pcbs.gov.ps/Portals/_Rainbow/Documents/Other-2021-E-16.htm",
     "https://temperate.theferns.info/plant/Vicia+ervilia",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
     "https://repo.mel.cgiar.org/items/594a548e-3d93-47fb-8b72-cb50a3f691dc",
@@ -113,8 +117,8 @@
    "cycle": [
     "wheat"
    ],
-   "card_ar": "إنت بتزرع قمح كل سنة، والقمح ورا القمح ممكن يتعّب الأرض. جرّب تبدّل: سنة قمح وسنة بقوليات. استشير المرشد الزراعي قبل ما تقرّر.",
-   "card_en": "You plant wheat every year, and wheat after wheat can tire the soil. Try alternating: one year wheat, one year a legume. Check with your agricultural adviser before you decide."
+   "card_ar": "إنت بتزرع قمح كل سنة، والقمح ورا القمح ممكن يتعّب الأرض. جرّب تبدّل: سنة قمح وسنة بقوليات. إنت أدرى بأرضك، فاعتبر هاد اقتراح مش أمر.",
+   "card_en": "You plant wheat every year, and wheat after wheat can tire the soil. Try alternating: one year wheat, one year a legume. You know your land best, so use this as a guide, not a rule."
   },
   {
    "id": "B",
@@ -127,8 +131,8 @@
     "wheat",
     "lentil"
    ],
-   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع قمح هالموسم، والموسم الجاي ازرع عدس لأنه بيحتاج مطر أقل وبغذّي التربة. استشير المرشد الزراعي قبل ما تقرّر.",
-   "card_en": "To protect your land from low rain: plant wheat this season, and lentil next season because it needs less rain and feeds the soil. Check with your agricultural adviser before you decide."
+   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع قمح هالموسم، والموسم الجاي ازرع عدس لأنه بيحتاج مطر أقل وبغذّي التربة. إنت أدرى بأرضك، فاعتبر هاد اقتراح مش أمر.",
+   "card_en": "To protect your land from low rain: plant wheat this season, and lentil next season because it needs less rain and feeds the soil. You know your land best, so use this as a guide, not a rule."
   },
   {
    "id": "C",
@@ -141,8 +145,8 @@
     "barley",
     "bitter_vetch"
    ],
-   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع شعير هالموسم لأنه بيتحمّل قلّة المطر أكثر من القمح، والموسم الجاي ازرع كرسنة عشان تغذّي التربة وتطعم مواشيك. استشير المرشد الزراعي قبل ما تقرّر.",
-   "card_en": "To protect your land from low rain: plant barley this season because it copes with low rain better than wheat, and bitter vetch next season to feed the soil and your livestock. Check with your agricultural adviser before you decide."
+   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع شعير هالموسم لأنه بيتحمّل قلّة المطر أكثر من القمح، والموسم الجاي ازرع كرسنة عشان تغذّي التربة وتطعم مواشيك. إنت أدرى بأرضك، فاعتبر هاد اقتراح مش أمر.",
+   "card_en": "To protect your land from low rain: plant barley this season because it copes with low rain better than wheat, and bitter vetch next season to feed the soil and your livestock. You know your land best, so use this as a guide, not a rule."
   }
  ],
  "horizon_seasons": 3
