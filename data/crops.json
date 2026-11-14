@@ -1,0 +1,138 @@
+{
+ "contract_version": 1,
+ "status_values": "sourced = from a cited source | local = told by a farmer/agronomist | illustrative = our assumption, label it on screen | todo = not filled yet",
+ "crops": [
+  {
+   "id": "wheat",
+   "name_en": "Wheat (durum)",
+   "name_ar": "قمح",
+   "family": "cereal",
+   "legume": false,
+   "min_season_rain_mm": 400,
+   "stage_risk": {
+    "heat_mam": true,
+    "dry_jfm": true
+   },
+   "bare_months_typical": 6,
+   "yield_t_ha": 1.6,
+   "price_ils_t": null,
+   "status": "illustrative",
+   "sources": [
+    "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=10582",
+    "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
+    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
+    "https://digital-media.fao.org/archive/WEST-BANK--Tammun--2013--Harvesting-Wheat--2A6XC587F9AU.html",
+    "https://www.fao.org/4/Y4011e/y4011e0s.htm"
+   ]
+  },
+  {
+   "id": "barley",
+   "name_en": "Barley",
+   "name_ar": "شعير",
+   "family": "cereal",
+   "legume": false,
+   "min_season_rain_mm": 200,
+   "stage_risk": {
+    "heat_mam": true,
+    "dry_jfm": true
+   },
+   "bare_months_typical": 6,
+   "yield_t_ha": 1.4,
+   "price_ils_t": null,
+   "status": "illustrative",
+   "sources": [
+    "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=1232",
+    "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
+    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025"
+   ]
+  },
+  {
+   "id": "lentil",
+   "name_en": "Lentil",
+   "name_ar": "عدس",
+   "family": "legume",
+   "legume": true,
+   "min_season_rain_mm": 250,
+   "stage_risk": {
+    "heat_mam": true,
+    "dry_jfm": false
+   },
+   "bare_months_typical": 6,
+   "yield_t_ha": 1.71,
+   "price_ils_t": null,
+   "status": "illustrative",
+   "sources": [
+    "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=7209",
+    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
+    "https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/palestine-lentils-yield",
+    "https://search.emarefa.net/en/detail/BIM-1380580-effects-of-climatic-gradient-on-growth-performance-yield-com"
+   ]
+  },
+  {
+   "id": "bitter_vetch",
+   "name_en": "Bitter vetch (forage)",
+   "name_ar": "كرسنة",
+   "family": "legume",
+   "legume": true,
+   "min_season_rain_mm": 300,
+   "stage_risk": {
+    "heat_mam": false,
+    "dry_jfm": true
+   },
+   "bare_months_typical": 6,
+   "yield_t_ha": 1.29,
+   "price_ils_t": null,
+   "status": "illustrative",
+   "sources": [
+    "https://temperate.theferns.info/plant/Vicia+ervilia",
+    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
+    "https://repo.mel.cgiar.org/items/594a548e-3d93-47fb-8b72-cb50a3f691dc",
+    "https://repo.mel.cgiar.org/items/19a65dcb-838b-4487-a8aa-8e7791d64026"
+   ]
+  }
+ ],
+ "rotations": [
+  {
+   "id": "A",
+   "label_en": "Current rotation",
+   "label_ar": "الدورة الحالية",
+   "is_current": true,
+   "status": "illustrative",
+   "note": "Wheat every year. Replace with the real rotation if Rana's farmer call confirms one.",
+   "cycle": [
+    "wheat"
+   ],
+   "card_ar": "إنت بتزرع قمح كل سنة، والقمح ورا القمح ممكن يتعّب الأرض. جرّب تبدّل: سنة قمح وسنة بقوليات. استشير المرشد الزراعي قبل ما تقرّر.",
+   "card_en": "You plant wheat every year, and wheat after wheat can tire the soil. Try alternating: one year wheat, one year a legume. Check with your agricultural adviser before you decide."
+  },
+  {
+   "id": "B",
+   "label_en": "Feed the soil",
+   "label_ar": "غذّي التربة",
+   "is_current": false,
+   "status": "illustrative",
+   "note": "Cereal-legume alternation; never cereal after cereal when repeated.",
+   "cycle": [
+    "wheat",
+    "lentil"
+   ],
+   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع قمح هالموسم، والموسم الجاي ازرع عدس لأنه بيحتاج مطر أقل وبغذّي التربة. استشير المرشد الزراعي قبل ما تقرّر.",
+   "card_en": "To protect your land from low rain: plant wheat this season, and lentil next season because it needs less rain and feeds the soil. Check with your agricultural adviser before you decide."
+  },
+  {
+   "id": "C",
+   "label_en": "Low rain / livestock",
+   "label_ar": "مطر قليل / مواشي",
+   "is_current": false,
+   "status": "illustrative",
+   "note": "Vetch cut for hay adds less nitrogen than vetch ploughed in.",
+   "cycle": [
+    "barley",
+    "bitter_vetch"
+   ],
+   "card_ar": "عشان تحمي أرضك من قلّة المطر: ازرع شعير هالموسم لأنه بيتحمّل قلّة المطر أكثر من القمح، والموسم الجاي ازرع كرسنة عشان تغذّي التربة وتطعم مواشيك. استشير المرشد الزراعي قبل ما تقرّر.",
+   "card_en": "To protect your land from low rain: plant barley this season because it copes with low rain better than wheat, and bitter vetch next season to feed the soil and your livestock. Check with your agricultural adviser before you decide."
+  }
+ ],
+ "horizon_seasons": 3
+}
