@@ -22,7 +22,9 @@
     "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
     "https://digital-media.fao.org/archive/WEST-BANK--Tammun--2013--Harvesting-Wheat--2A6XC587F9AU.html",
-    "https://www.fao.org/4/Y4011e/y4011e0s.htm"
+    "https://www.fao.org/4/Y4011e/y4011e0s.htm",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7285450/",
+    "https://publish.csiro.au/cp/AR9900799"
    ]
   },
   {
@@ -43,7 +45,10 @@
    "sources": [
     "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=1232",
     "https://unctad.org/system/files/official-document/gdsapp2015d1_en.pdf",
-    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025"
+    "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
+    "https://pmc.ncbi.nlm.nih.gov/articles/pmid/32667992",
+    "https://core.ac.uk/download/527695192.pdf",
+    "https://repo.mel.cgiar.org/items/0463bba4-d4d8-48fd-9e18-04a3d5461112/full"
    ]
   },
   {
@@ -55,17 +60,21 @@
    "min_season_rain_mm": 250,
    "stage_risk": {
     "heat_mam": true,
-    "dry_jfm": false
+    "dry_jfm": true
    },
    "bare_months_typical": 6,
-   "yield_t_ha": 1.71,
+   "yield_t_ha": 1.16,
    "price_ils_t": null,
    "status": "illustrative",
    "sources": [
     "https://ecocrop.apps.fao.org/ecocrop/srv/en/dataSheet?id=7209",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
     "https://d3fqfiq2w1ez7u.cloudfront.net/nmx/timeseries/palestine-lentils-yield",
-    "https://search.emarefa.net/en/detail/BIM-1380580-effects-of-climatic-gradient-on-growth-performance-yield-com"
+    "https://search.emarefa.net/en/detail/BIM-1380580-effects-of-climatic-gradient-on-growth-performance-yield-com",
+    "https://www.frontiersin.org/articles/10.3389/fnut.2022.857469/full",
+    "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1403922/full",
+    "https://www.helgilibrary.com/indicators/lentils-production/palestine/",
+    "https://www.helgilibrary.com/indicators/lentils-area-harvested/palestine/"
    ]
   },
   {
@@ -76,8 +85,8 @@
    "legume": true,
    "min_season_rain_mm": 300,
    "stage_risk": {
-    "heat_mam": false,
-    "dry_jfm": true
+    "heat_mam": true,
+    "dry_jfm": false
    },
    "bare_months_typical": 6,
    "yield_t_ha": 1.29,
@@ -87,7 +96,9 @@
     "https://temperate.theferns.info/plant/Vicia+ervilia",
     "https://reliefweb.int/report/occupied-palestinian-territory/west-bank-diem-data-emergencies-brief-food-security-and-livelihoods-agricultural-households-october-2025",
     "https://repo.mel.cgiar.org/items/594a548e-3d93-47fb-8b72-cb50a3f691dc",
-    "https://repo.mel.cgiar.org/items/19a65dcb-838b-4487-a8aa-8e7791d64026"
+    "https://repo.mel.cgiar.org/items/19a65dcb-838b-4487-a8aa-8e7791d64026",
+    "https://ijfcs.ut.ac.ir/article_107276.html?lang=en",
+    "https://www.mdpi.com/2223-7747/14/7/1008"
    ]
   }
  ],
