@@ -157,3 +157,17 @@ Closing: "شكراً كثير. مرة ثانية: ما رح نذكر اسمك."
 Write down: date and time of the call, governorate/village level only, and the answers word for word.
 Question 5 replaces a separate consent question because consent is asked at the start; it is the only way we
 currently have to fill price_ils_t.
+
+## 5. Prices added Sat 14 Nov ~07:15 (price_ils_t was null; Yara asked for it to be filled)
+Unit: NIS per tonne, farm-gate. All four crops stay status "illustrative" (yield etc. are still illustrative).
+- WHEAT 1766 = PCBS Average Producer Prices 2021, "Anbar Wheat" 88.30 NIS per 50 kg sack x 20.
+  (American wheat was 81.46.) https://pcbs.gov.ps/Portals/_Rainbow/Documents/Other-2021-E-16.htm
+- BARLEY 2344 = same PCBS table, 117.18 NIS per 50 kg x 20, rounded.
+  Note: 2021 prices, not this season. Barley above wheat is what PCBS reports for 2021.
+- LENTIL 4300 = ASSUMPTION, no farm-gate source found. PCBS has no lentil row. Basis: WFP retail lentil about
+  7.2 NIS/kg (West Bank, Jun 2022) x 0.6 as a guess at the farmer's share. Replace with Rana's farmer-call price.
+  https://www.un.org/unispal/wp-content/uploads/2022/08/WFPMOMKTDBJUNE22_300622.pdf
+- BITTER VETCH 2300 = ASSUMPTION, no price found anywhere (not in PCBS 2017 or 2021). Set about equal to barley as
+  a feed grain. Replace with a real price.
+The screen must say prices are assumptions / 2021 averages. With these four numbers the Income preset now differs
+from Balanced (income per ha: wheat ~2826, barley ~3282, lentil ~4988, vetch ~2967 NIS).
